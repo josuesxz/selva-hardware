@@ -1,6 +1,6 @@
 //CONFIGURAÇÃO E LOOP DO SISTEMA 
 
-void setup_bme(){
+void setup_bmp(){
   Serial.println(F("BMP280 setup"));
   unsigned status;
   status = bmp.begin(0x76, BMP280_CHIPID); //id do bmp
@@ -26,9 +26,7 @@ void setup_bme(){
   bmp_temp->printSensorDetails();
 }
 
-void temperature() {
+void loop_bmp() {
 Serial.println(bmp_temp->getEvent(&temp_event));
 Serial.println(bmp_pressure->getEvent(&pressure_event));
-
-delay(1000);
 }
