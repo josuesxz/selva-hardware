@@ -43,17 +43,17 @@ void setup() {
   Serial.begin(115200);
   while ( !Serial ) delay(100);   // wait for native usb
   setup_bmp();
-  setup_banco();
+  stetup_rtc();
   setup_pms();
-  setup_banco();
+  //setup_banco();
 }
 
 //PROCESSO DE ROTINA DO SISTEMA 
 void loop(){
- // RTC();
+ RTC();
  // banco_dados();
- // loop_pms();
- // loop_bmp();
+ loop_pms();
+ loop_bmp();
 
-  delay(100);
+  delay(1000);
 }

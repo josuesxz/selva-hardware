@@ -1,7 +1,7 @@
 //CONFIGURAÇÃO E LOOP DO SISTEMA 
 
 void setup_bmp(){
-  Serial.println(F("BMP280 setup"));
+  //Serial.println(F("BMP280 setup"));
   unsigned status;
   status = bmp.begin(0x76, BMP280_CHIPID); //id do bmp
   //status = bmp.begin();
@@ -27,6 +27,10 @@ void setup_bmp(){
 }
 
 void loop_bmp() {
-Serial.println(bmp_temp->getEvent(&temp_event));
-Serial.println(bmp_pressure->getEvent(&pressure_event));
+//bmp_temp->getEvent(&temp_event);
+Serial.println(bmp.readTemperature());
+Serial.println();
+Serial.print(bmp.readPressure());
+Serial.println();
+//Serial.println(bmp_pressure->getEvent(&pressure_event));
 }
