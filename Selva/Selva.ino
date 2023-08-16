@@ -11,6 +11,7 @@ Para mostrar na serial podemos pegar do banco de dados e gg
 #include <PMS.h> // Sensor particulado
 #include <ESP8266WiFi.h> //Comunicação com wifi
 #include <FirebaseESP8266.h> //Comunicação com o firebase
+#include <SoftwareSerial.h> //Comunicação do PMS
 
 // Configurações da rede Wi-Fi
 #define ssid "STEMLABNET"
@@ -30,12 +31,13 @@ RTC_DS3231 rtc; //OBJETO DO TIPO RTC_DS3231
 char daysOfTheWeek[7][12] = {"Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"};
 
 // Crie uma estrutura para armazenar os dados do sensor
-PMS pms(Serial);
+SoftwareSerial pmsSerial(7, 8); // RX, TX
+PMS pms(pmsSerial);
 PMS::DATA data;
 
-// Instância da biblioteca FirebaseESP8266
+// Instância da biblioteca FirebaseESP8266 e variáveis de caminho
 FirebaseData firebaseData;
-String temperatura, pressao;
+String temp_est, pms_est, press_est;
 
 // ------------------- FIM ---------------------------------
 
@@ -45,15 +47,14 @@ void setup() {
   setup_bmp();
   stetup_rtc();
   setup_pms();
-  //setup_banco();
+  setup_banco();
 }
 
 //PROCESSO DE ROTINA DO SISTEMA 
 void loop(){
- RTC();
- // banco_dados();
- loop_pms();
- loop_bmp();
-
-  delay(1000);
+  RTC();
+  loop_pms();
+  loop_bmp();
+  banco_dados();
+  delay(100);
 }

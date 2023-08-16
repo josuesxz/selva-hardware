@@ -14,12 +14,13 @@ void setup_banco(){
 }
 
 void banco_dados(){
-  /*temperature();
   // Define o caminho do nó no Firebase
-  temperatura = "/regiao 1/Temperatura";
-  pressao = "/regiao 1/Pressao";
+  temp_est = "/Estacao/EST_EST/Temperatura";
+  pms_est = "/Estacao/EST_EST/PM";
+  press_est = "/Estacao/EST_EST/Pressao";
 
   // Envia o valor para o Firebase
-  Firebase.setDouble(firebaseData, temperatura, temp_event.temperature); 
-  Firebase.setDouble(firebaseData, pressao, pressure_event.pressure); */
+  Firebase.setDouble(firebaseData, temp_est, bmp.readTemperature()); 
+  Firebase.setDouble(firebaseData, press_est, bmp.readPressure());
+  Firebase.setInt(firebaseData, pms_est, pms.read(data));
 }
