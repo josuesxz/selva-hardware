@@ -9,9 +9,9 @@ Para mostrar na serial podemos pegar do banco de dados e gg
 #include <Adafruit_BMP280.h> //Temperatura e pressão
 #include "RTClib.h" //Clock
 #include <PMS.h> // Sensor particulado
+#include <SoftwareSerial.h> //Comunicação do PMS
 #include <ESP8266WiFi.h> //Comunicação com wifi
 #include <FirebaseESP8266.h> //Comunicação com o firebase
-#include <SoftwareSerial.h> //Comunicação do PMS
 
 // Configurações da rede Wi-Fi
 #define ssid "STEMLABNET"
@@ -30,12 +30,12 @@ sensors_event_t temp_event, pressure_event;
 RTC_DS3231 rtc; //OBJETO DO TIPO RTC_DS3231
 char daysOfTheWeek[7][12] = {"Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"};
 
-// Crie uma estrutura para armazenar os dados do sensor
-SoftwareSerial pmsSerial(7, 8); // RX, TX
+//Escopo de uso do PMS
+SoftwareSerial pmsSerial(15, 13);   // RX, TX
 PMS pms(pmsSerial);
 PMS::DATA data;
 
-// Instância da biblioteca FirebaseESP8266 e variáveis de caminho
+//Instância da biblioteca FirebaseESP8266 e variáveis de caminho
 FirebaseData firebaseData;
 String temp_est, pms_est, press_est;
 
@@ -52,9 +52,9 @@ void setup() {
 
 //PROCESSO DE ROTINA DO SISTEMA 
 void loop(){
+  loop_bmp();
   RTC();
   loop_pms();
-  loop_bmp();
   banco_dados();
   delay(100);
 }
