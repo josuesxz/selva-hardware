@@ -22,5 +22,5 @@ void banco_dados(){
   // Envia o valor para o Firebase
   Firebase.setDouble(firebaseData, temp_est, bmp.readTemperature()); 
   Firebase.setDouble(firebaseData, press_est, bmp.readPressure());
-  Firebase.setInt(firebaseData, pms_est, pms.read(data));
+  Firebase.setDouble(firebaseData, pms_est, data.PM_AE_UG_1_0);
 }

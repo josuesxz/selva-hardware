@@ -8,14 +8,21 @@ Para mostrar na serial podemos pegar do banco de dados e gg
 #include <SPI.h> //Comunicação SPI
 #include <Adafruit_BMP280.h> //Temperatura e pressão
 #include "RTClib.h" //Clock
-#include <PMS.h> // Sensor particulado
-#include <SoftwareSerial.h> //Comunicação do PMS
 #include <ESP8266WiFi.h> //Comunicação com wifi
 #include <FirebaseESP8266.h> //Comunicação com o firebase
+#include <SoftwareSerial.h>
+#include "PMS.h"
 
+#define baud 9600
 // Configurações da rede Wi-Fi
 #define ssid "STEMLABNET"
 #define password "1n0v@t3ch.5t3m@#!"
+
+//Definição do Serial Software
+SoftwareSerial pmsSerial(13, 15); //tx - D8, rx - D7
+//SoftwareSerial(rxPin, txPin), I used D8 for RX and D7 for TX (esp8266) and connected TX on PMS5003 to D8
+PMS pms(pmsSerial);
+PMS::DATA data;
 
 // Configurações do Firebase
 #define host "https://teste-selva-550d6-default-rtdb.firebaseio.com/regiao%201"
@@ -30,10 +37,6 @@ sensors_event_t temp_event, pressure_event;
 RTC_DS3231 rtc; //OBJETO DO TIPO RTC_DS3231
 char daysOfTheWeek[7][12] = {"Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"};
 
-//Escopo de uso do PMS
-SoftwareSerial pmsSerial(15, 13);   // RX, TX
-PMS pms(pmsSerial);
-PMS::DATA data;
 
 //Instância da biblioteca FirebaseESP8266 e variáveis de caminho
 FirebaseData firebaseData;
@@ -42,7 +45,7 @@ String temp_est, pms_est, press_est;
 // ------------------- FIM ---------------------------------
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(baud);
   while ( !Serial ) delay(100);   // wait for native usb
   setup_bmp();
   stetup_rtc();
