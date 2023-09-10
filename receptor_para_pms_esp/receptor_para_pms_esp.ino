@@ -1,5 +1,4 @@
 #include <SoftwareSerial.h>
-
 SoftwareSerial recept(13, 15); //rx - tx (desconecta o pino D8, só deixa o D7 (receptor))
 
 void setup() {
@@ -8,10 +7,12 @@ void setup() {
   recept.begin(9600);
 }
 
+int vetor[2];
 void loop() { // run over and over
   if (recept.available()) {
     Serial.write(recept.read()); //dados respectivamente 1.0 - 2.5 - 10.0 ug/m3 (cada um com 2 casas)
   }
+
   if (Serial.available()) {
     recept.write(Serial.read());
   }

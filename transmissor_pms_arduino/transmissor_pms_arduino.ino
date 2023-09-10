@@ -15,8 +15,8 @@ void setup(){
 void loop(){
   if (pms.read(data)){
     Serial.println(data.PM_AE_UG_1_0);
-    Serial.println(data.PM_AE_UG_2_5);
-    Serial.println(data.PM_AE_UG_10_0);
+    //Serial.println(data.PM_AE_UG_2_5);
+    //Serial.println(data.PM_AE_UG_10_0);
     Serial.println(" ");
   }
 }
