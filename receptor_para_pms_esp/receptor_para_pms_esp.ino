@@ -9,10 +9,10 @@ void setup() {
 }
 
 void loop() { // run over and over
-  if (recept.available()) { //dados respectivamente 1.0 - 2.5 - 10.0 ug/m3 (cada um com 2 casas)
-    Serial.println(recept.read()); //enquanto houver dado na serial ele "printa"
+  if (recept.available()) {
+    Serial.write(recept.read()); //dados respectivamente 1.0 - 2.5 - 10.0 ug/m3 (cada um com 2 casas)
   }
-    if (Serial.available()) {
-    recept.write(recept.read());
-    }
+  if (Serial.available()) {
+    recept.write(Serial.read());
+  }
 }
